@@ -17,6 +17,7 @@ function assetResolver() {
 }
 
 export default defineConfig({
+  base: '/redesign-sito-cavazza/',
   plugins: [
     assetResolver(),
     // The React and Tailwind plugins are required for the project, even if

@@ -66,6 +66,7 @@ export function AccessibilityWidget() {
   const [settings, setSettings] = useState<AccessibilitySetting>(DEFAULT_SETTINGS);
   const [language, setLanguage] = useState<'it' | 'en'>('it');
   const screenReaderActiveRef = useRef(false);
+  const keyboardNavigationActiveRef = useRef(false);
 
   useEffect(() => {
     // Carica preferenze salvate
@@ -107,6 +108,30 @@ export function AccessibilityWidget() {
       disableScreenReader();
       disableReadingGuide();
       window.removeEventListener('accessibilitychange', handleAccessibilityChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Tab') {
+        keyboardNavigationActiveRef.current = true;
+      }
+    };
+
+    const handlePointerInput = () => {
+      keyboardNavigationActiveRef.current = false;
+    };
+
+    window.addEventListener('keydown', handleKeyDown, true);
+    window.addEventListener('mousedown', handlePointerInput, true);
+    window.addEventListener('pointerdown', handlePointerInput, true);
+    window.addEventListener('touchstart', handlePointerInput, true);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown, true);
+      window.removeEventListener('mousedown', handlePointerInput, true);
+      window.removeEventListener('pointerdown', handlePointerInput, true);
+      window.removeEventListener('touchstart', handlePointerInput, true);
     };
   }, []);
 
@@ -286,6 +311,11 @@ export function AccessibilityWidget() {
       return;
     }
 
+    // Annuncia solo quando il focus arriva da navigazione tastiera.
+    if (!keyboardNavigationActiveRef.current) {
+      return;
+    }
+
     const target = e.target as HTMLElement;
 
     // Non leggere se l'evento è sul widget stesso o floating button
@@ -329,6 +359,7 @@ export function AccessibilityWidget() {
     if ('speechSynthesis' in window) {
       screenReaderActiveRef.current = true;
       document.documentElement.classList.add('accessibility-screen-reader');
+      keyboardNavigationActiveRef.current = false;
 
       // Rimuovi prima eventuali listener precedenti (prevenzione duplicati)
       document.removeEventListener('focusin', handleScreenReaderEvent);
@@ -666,7 +697,7 @@ export function AccessibilityWidget() {
             <ToggleControl
               icon={<Ear className="w-5 h-5" />}
               label="Screen Reader Integrato"
-              description="Leggi il testo al click"
+              description="Leggi il testo durante la navigazione con Tab"
               checked={settings.screenReader}
               onChange={(checked) => updateSetting('screenReader', checked)}
             />

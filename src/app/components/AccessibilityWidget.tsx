@@ -367,9 +367,11 @@ export function AccessibilityWidget() {
     }
 
     const normalizedText = textToRead.trim();
+    const fallbackText = language === 'it' ? 'Senza etichetta' : 'Unlabeled';
+    const baseText = normalizedText || fallbackText;
     const finalText = interactiveHint
-      ? `${interactiveHint}. ${normalizedText || (language === 'it' ? 'Senza etichetta' : 'Unlabeled')}`
-      : normalizedText;
+      ? `${baseText}. ${interactiveHint}`
+      : baseText;
 
     if (finalText && finalText.length < 500) {
       const utterance = new SpeechSynthesisUtterance(finalText);

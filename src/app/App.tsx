@@ -521,10 +521,33 @@ export default function App() {
     return () => window.removeEventListener('site-navigate', navHandler as EventListener);
   }, []);
 
+  const currentPageForSkipLink = (() => {
+    if (currentPage === 'home') return language === 'it' ? 'Pagina Home' : 'Home page';
+    if (currentPage === 'istituto') return language === 'it' ? 'Pagina Istituto' : 'Institute page';
+    if (currentPage === 'servizi') return language === 'it' ? 'Pagina Servizi' : 'Services page';
+    if (currentPage === 'formazione') return language === 'it' ? 'Pagina Formazione' : 'Training page';
+    if (currentPage === 'eventi') return language === 'it' ? 'Pagina Eventi' : 'Events page';
+    if (currentPage === 'accessibilita') return language === 'it' ? 'Pagina Accessibilita' : 'Accessibility page';
+    if (currentPage === 'segnala-problemi') return language === 'it' ? 'Pagina Segnala Problemi' : 'Report issues page';
+    if (currentPage === 'search') return language === 'it' ? 'Pagina Risultati Ricerca' : 'Search results page';
+
+    if (currentPage === 'cultura') {
+      if (culturaSubPage === 'hub') return language === 'it' ? 'Pagina Cultura Hub' : 'Culture hub page';
+      if (culturaSubPage === 'biblioteca') return language === 'it' ? 'Pagina Biblioteca' : 'Library page';
+      if (culturaSubPage === 'anteros') return language === 'it' ? 'Pagina Museo Anteros' : 'Anteros museum page';
+      if (culturaSubPage === 'anteros-detail') return language === 'it' ? 'Pagina Dettaglio Museo Anteros' : 'Anteros detail page';
+      if (culturaSubPage === 'tolomeo') return language === 'it' ? 'Pagina Museo Tolomeo' : 'Tolomeo museum page';
+      if (culturaSubPage === 'tolomeo-detail') return language === 'it' ? 'Pagina Dettaglio Museo Tolomeo' : 'Tolomeo detail page';
+      if (culturaSubPage === 'radio') return language === 'it' ? 'Pagina Radio Oltre' : 'Radio Oltre page';
+    }
+
+    return language === 'it' ? 'Contenuto principale' : 'Main content';
+  })();
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* MARKER-DESIGN-KIT-INVOKED */}
-      <SkipLink targetId="main-content" />
+      <SkipLink targetId="main-content" pageLabel={currentPageForSkipLink} />
       <div className="sticky top-0 z-50">
         <div className="hidden md:block">
           <AccessibilityToolbar />

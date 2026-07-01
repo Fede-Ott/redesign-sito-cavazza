@@ -257,49 +257,75 @@ export function AccessibilityWidget() {
     const isItalian = language === 'it';
 
     if (element instanceof HTMLAnchorElement || element.getAttribute('role') === 'link') {
-      return isItalian ? 'Link' : 'Link';
+      return isItalian
+        ? 'Link. Clicca o premi Invio per aprire'
+        : 'Link. Click or press Enter to open';
     }
 
     if (element instanceof HTMLButtonElement || element.getAttribute('role') === 'button') {
-      return isItalian ? 'Pulsante' : 'Button';
+      return isItalian
+        ? 'Pulsante. Clicca o premi Invio'
+        : 'Button. Click or press Enter';
     }
 
     if (element instanceof HTMLSelectElement) {
-      return isItalian ? 'Menu a tendina' : 'Dropdown';
+      return isItalian
+        ? "Menu a tendina. Scegli un'opzione"
+        : 'Dropdown. Choose an option';
     }
 
     if (element instanceof HTMLTextAreaElement) {
-      return isItalian ? 'Area di testo' : 'Text area';
+      return isItalian
+        ? 'Area di testo. Scrivi qui'
+        : 'Text area. Type here';
     }
 
     if (element instanceof HTMLInputElement) {
+      if (element.type === 'search') {
+        return isItalian
+          ? 'Campo di ricerca. Scrivi cosa vuoi cercare'
+          : 'Search field. Type what you want to search';
+      }
+
       if (element.type === 'checkbox') {
         const state = element.checked
-          ? (isItalian ? 'selezionata' : 'checked')
-          : (isItalian ? 'non selezionata' : 'not checked');
-        return isItalian ? `Casella di controllo ${state}` : `Checkbox ${state}`;
+          ? (isItalian ? 'attiva' : 'on')
+          : (isItalian ? 'non attiva' : 'off');
+        return isItalian
+          ? `Casella di spunta ${state}. Premi Spazio per cambiare`
+          : `Checkbox ${state}. Press Space to change`;
       }
 
       if (element.type === 'radio') {
         const state = element.checked
           ? (isItalian ? 'selezionato' : 'selected')
           : (isItalian ? 'non selezionato' : 'not selected');
-        return isItalian ? `Pulsante di opzione ${state}` : `Radio button ${state}`;
+        return isItalian
+          ? `Scelta ${state}. Usa frecce e premi Spazio`
+          : `Option ${state}. Use arrows and press Space`;
       }
 
       if (element.type === 'range') {
-        return isItalian ? 'Slider' : 'Slider';
+        return isItalian
+          ? 'Slider. Usa freccia destra o sinistra'
+          : 'Slider. Use left or right arrow';
       }
 
-      return isItalian ? 'Campo di input' : 'Input field';
+      return isItalian
+        ? 'Campo di testo. Scrivi qui'
+        : 'Text field. Type here';
     }
 
     if (element.getAttribute('role') === 'menuitem') {
-      return isItalian ? 'Voce di menu' : 'Menu item';
+      return isItalian
+        ? 'Voce di menu. Clicca o premi Invio'
+        : 'Menu item. Click or press Enter';
     }
 
     if (element.getAttribute('role') === 'tab') {
-      return isItalian ? 'Scheda' : 'Tab';
+      return isItalian
+        ? 'Scheda. Premi Invio per aprire'
+        : 'Tab. Press Enter to open';
     }
 
     return '';

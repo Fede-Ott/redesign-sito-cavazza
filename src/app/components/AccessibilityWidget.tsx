@@ -228,7 +228,7 @@ export function AccessibilityWidget() {
     localStorage.setItem('accessibility-settings', JSON.stringify(newSettings));
   };
 
-  const handleScreenReaderEvent = (e: FocusEvent | MouseEvent) => {
+  const handleScreenReaderEvent = (e: FocusEvent) => {
     // CRITICO: verifica che lo screen reader sia effettivamente attivo
     if (!screenReaderActiveRef.current) {
       return;
@@ -272,11 +272,9 @@ export function AccessibilityWidget() {
 
       // Rimuovi prima eventuali listener precedenti (prevenzione duplicati)
       document.removeEventListener('focusin', handleScreenReaderEvent);
-      document.removeEventListener('click', handleScreenReaderEvent);
 
-      // Aggiungi event listeners per focus (tab navigation) E click
+      // Aggiungi listener solo su focus da tastiera (Tab/Shift+Tab)
       document.addEventListener('focusin', handleScreenReaderEvent);
-      document.addEventListener('click', handleScreenReaderEvent);
     } else {
       alert('Il tuo browser non supporta la sintesi vocale.');
     }
@@ -288,7 +286,6 @@ export function AccessibilityWidget() {
 
     // Rimuovi event listeners
     document.removeEventListener('focusin', handleScreenReaderEvent);
-    document.removeEventListener('click', handleScreenReaderEvent);
 
     // Ferma qualsiasi lettura in corso
     if ('speechSynthesis' in window) {

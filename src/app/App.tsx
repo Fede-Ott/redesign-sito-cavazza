@@ -53,6 +53,7 @@ import { getEvents, getProjects, getNews, getPageContents } from './data/content
 
 const TEXT_NAV_SELECTOR = [
   'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+  'span',
   'p', 'li', 'dt', 'dd',
   'blockquote', 'figcaption',
   'td', 'th',
@@ -86,7 +87,9 @@ function applyKeyboardTextNavigation(root: HTMLElement): void {
   candidates.forEach((element) => {
     if (element.closest('[aria-hidden="true"]')) return;
     if (element.closest(INTERACTIVE_ANCESTOR_SELECTOR)) return;
+    if (element.querySelector(INTERACTIVE_ANCESTOR_SELECTOR)) return;
     if (!isVisibleForKeyboardNav(element)) return;
+    if (!element.textContent || !element.textContent.trim()) return;
 
     // Preserve explicit tabindex values already set by component authors.
     if (element.hasAttribute('tabindex')) return;

@@ -228,6 +228,58 @@ export function AccessibilityWidget() {
     localStorage.setItem('accessibility-settings', JSON.stringify(newSettings));
   };
 
+  const getInteractiveElementHint = (element: HTMLElement): string => {
+    const isItalian = language === 'it';
+
+    if (element instanceof HTMLAnchorElement || element.getAttribute('role') === 'link') {
+      return isItalian ? 'Link' : 'Link';
+    }
+
+    if (element instanceof HTMLButtonElement || element.getAttribute('role') === 'button') {
+      return isItalian ? 'Pulsante' : 'Button';
+    }
+
+    if (element instanceof HTMLSelectElement) {
+      return isItalian ? 'Menu a tendina' : 'Dropdown';
+    }
+
+    if (element instanceof HTMLTextAreaElement) {
+      return isItalian ? 'Area di testo' : 'Text area';
+    }
+
+    if (element instanceof HTMLInputElement) {
+      if (element.type === 'checkbox') {
+        const state = element.checked
+          ? (isItalian ? 'selezionata' : 'checked')
+          : (isItalian ? 'non selezionata' : 'not checked');
+        return isItalian ? `Casella di controllo ${state}` : `Checkbox ${state}`;
+      }
+
+      if (element.type === 'radio') {
+        const state = element.checked
+          ? (isItalian ? 'selezionato' : 'selected')
+          : (isItalian ? 'non selezionato' : 'not selected');
+        return isItalian ? `Pulsante di opzione ${state}` : `Radio button ${state}`;
+      }
+
+      if (element.type === 'range') {
+        return isItalian ? 'Slider' : 'Slider';
+      }
+
+      return isItalian ? 'Campo di input' : 'Input field';
+    }
+
+    if (element.getAttribute('role') === 'menuitem') {
+      return isItalian ? 'Voce di menu' : 'Menu item';
+    }
+
+    if (element.getAttribute('role') === 'tab') {
+      return isItalian ? 'Scheda' : 'Tab';
+    }
+
+    return '';
+  };
+
   const handleScreenReaderEvent = (e: FocusEvent) => {
     // CRITICO: verifica che lo screen reader sia effettivamente attivo
     if (!screenReaderActiveRef.current) {
@@ -242,6 +294,9 @@ export function AccessibilityWidget() {
 
     let textToRead = '';
 
+    const interactiveTarget = target.closest('a, button, input, select, textarea, summary, [role="button"], [role="link"], [role="menuitem"], [role="tab"]') as HTMLElement | null;
+    const interactiveHint = interactiveTarget ? getInteractiveElementHint(interactiveTarget) : '';
+
     // Priorità: aria-label > alt > innerText > placeholder
     if (target.hasAttribute('aria-label')) {
       textToRead = target.getAttribute('aria-label') || '';
@@ -255,8 +310,13 @@ export function AccessibilityWidget() {
       textToRead = target.textContent;
     }
 
-    if (textToRead.trim() && textToRead.length < 500) {
-      const utterance = new SpeechSynthesisUtterance(textToRead);
+    const normalizedText = textToRead.trim();
+    const finalText = interactiveHint
+      ? `${interactiveHint}. ${normalizedText || (language === 'it' ? 'Senza etichetta' : 'Unlabeled')}`
+      : normalizedText;
+
+    if (finalText && finalText.length < 500) {
+      const utterance = new SpeechSynthesisUtterance(finalText);
       utterance.lang = language;
       utterance.rate = 0.9;
       window.speechSynthesis.cancel(); // Ferma lettura precedente

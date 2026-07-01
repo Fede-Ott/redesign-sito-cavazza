@@ -1,0 +1,589 @@
+@custom-variant dark (&:is(.dark *));
+@custom-variant large-text (&:is(.large-text *));
+
+:root {
+  /* Base font size - scalabile per modalità testo ingrandito */
+  --font-size: 18px;
+  --font-size-large: 22px;
+
+  /* Alto contrasto WCAG AAA compliant (7:1+) - Modalità Chiara */
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #EDF4FF;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+
+  /* Colore primario - blu intenso per massimo contrasto */
+  --primary: #135DCD;
+  --primary-foreground: #ffffff;
+
+  /* Colore secondario - sfondo tenue blu */
+  --secondary: #EDF4FF;
+  --secondary-foreground: #000000;
+
+  /* Elementi attenuati con contrasto 4.5:1+ */
+  --muted: #FFDED2;
+  --muted-foreground: #333333;
+
+  /* Colore accent - arancione per enfasi (mai usato da solo) */
+  --accent: #D75220;
+  --accent-foreground: #ffffff;
+
+  /* Stato distruttivo */
+  --destructive: #c62828;
+  --destructive-foreground: #ffffff;
+
+  /* Bordi visibili */
+  --border: #333333;
+  --input: #333333;
+  --input-background: #ffffff;
+  --switch-background: #666666;
+
+  /* Focus ring molto visibile - 4px spessore */
+  --ring: #ff6f00;
+  --ring-width: 4px;
+  --ring-offset: 2px;
+
+  /* Font weights */
+  --font-weight-medium: 600;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+
+  /* Border radius ridotto per chiarezza */
+  --radius: 0.25rem;
+
+  /* Sidebar */
+  --sidebar: #EDF4FF;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #135DCD;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #FFDED2;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #333333;
+  --sidebar-ring: #ff6f00;
+
+  /* Spaziature generose per accessibilità */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-2xl: 4rem;
+
+  /* Dimensioni minime target touch (44x44px) */
+  --min-touch-target: 44px;
+
+  /* Charts - colori ad alto contrasto con pattern differenziati */
+  --chart-1: #135DCD;
+  --chart-2: #D75220;
+  --chart-3: #00695c;
+  --chart-4: #7b1fa2;
+  --chart-5: #f57c00;
+  --search-border-color: #135DCD;
+}
+
+/* Modalità Dark - scuro morbido (evita nero puro per ridurre fotofobia) */
+.dark {
+  --background: #0d1117;
+  --foreground: #ffffff;
+  --card: #141b26;
+  --card-foreground: #ffffff;
+  --popover: #0d1117;
+  --popover-foreground: #ffffff;
+
+  --primary: #D75220;
+  --primary-foreground: #ffffff;
+
+  --secondary: #1a2332;
+  --secondary-foreground: #ffffff;
+
+  --muted: #1e2a3a;
+  --muted-foreground: #ffffff;
+
+  --accent: #D75220;
+  --accent-foreground: #ffffff;
+
+  --destructive: #ef5350;
+  --destructive-foreground: #f0f4ff;
+
+  --border: #ffffff66;
+  --input: #ffffff;
+  --input-background: #141b26;
+  --switch-background: #3d5070;
+  --search-border-color: #ffffff;
+
+  --ring: #ffd54f;
+
+  --sidebar: #141b26;
+  --sidebar-foreground: #f0f4ff;
+  --sidebar-primary: #5c9cff;
+  --sidebar-primary-foreground: #0d1117;
+  --sidebar-accent: #1a2332;
+  --sidebar-accent-foreground: #f0f4ff;
+  --sidebar-border: #2d4060;
+  --sidebar-ring: #ffd54f;
+
+  --chart-1: #5c9cff;
+  --chart-2: #D75220;
+  --chart-3: #4db6ac;
+  --chart-4: #ba68c8;
+  --chart-5: #ffb74d;
+}
+
+/* Modalità Testo Ingrandito - scala font e spaziature */
+.large-text {
+  --font-size: 22px;
+  --spacing-xs: 0.75rem;
+  --spacing-sm: 1.25rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 2.75rem;
+  --spacing-xl: 4rem;
+  --spacing-2xl: 5rem;
+  --min-touch-target: 56px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  /* Accessibilità: focus ring altamente visibile */
+  *:focus {
+    outline: var(--ring-width) solid var(--ring);
+    outline-offset: var(--ring-offset);
+  }
+
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  *:focus-visible {
+    outline: var(--ring-width) solid var(--ring);
+    outline-offset: var(--ring-offset);
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  /* Rispetta le preferenze utente per animazioni ridotte */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /**
+  * Tipografia accessibile con gerarchia esasperata
+  * Line-height generoso (1.6) per leggibilità
+  * Font Atkinson Hyperlegible progettato per bassa visione
+  */
+
+  html {
+    font-size: var(--font-size);
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: var(--font-weight-bold);
+    line-height: 1.2;
+    margin-bottom: var(--spacing-md);
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: var(--font-weight-bold);
+    line-height: 1.3;
+    margin-bottom: var(--spacing-md);
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-bold);
+    line-height: 1.4;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  h4 {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  h5 {
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  h6 {
+    font-size: 1rem;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  p {
+    font-size: 1rem;
+    font-weight: var(--font-weight-normal);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  label {
+    font-size: 1rem;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.6;
+    display: block;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  button {
+    font-size: 1rem;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+    font-family: inherit;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 1rem;
+    font-weight: var(--font-weight-normal);
+    line-height: 1.6;
+    font-family: inherit;
+  }
+
+  /* Links accessibili - sempre sottolineati */
+  a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  a:hover {
+    color: var(--accent);
+  }
+
+  a:focus-visible {
+    outline: var(--ring-width) solid var(--ring);
+    outline-offset: var(--ring-offset);
+  }
+
+  /* Skip link - visibile solo al focus */
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: var(--primary);
+    color: var(--primary-foreground);
+    padding: var(--spacing-sm) var(--spacing-md);
+    z-index: 9999;
+    font-weight: var(--font-weight-bold);
+  }
+
+  .skip-link:focus {
+    top: 0;
+  }
+}
+
+/* Dark mode (accessibility-dark class applied by widget): outline-based aesthetics */
+.accessibility-dark {
+  --primary: #D75220;
+  --primary-foreground: #ffffff;
+  --accent: #D75220;
+  --accent-foreground: #ffffff;
+  --search-border-color: #ffffff;
+}
+
+/* Card-like boxes: transparent background + outline border */
+.accessibility-dark [class*="bg-card"],
+.accessibility-dark [class*="bg-secondary"],
+.accessibility-dark [class*="bg-muted"] {
+  background-color: transparent !important;
+  outline: 2px solid #2d4060;
+  outline-offset: 0;
+}
+
+/* Restore hero and accent sections that intentionally keep their background */
+.accessibility-dark [class*="bg-gradient-to-br"],
+.accessibility-dark [class*="bg-primary"],
+.accessibility-dark [class*="bg-accent"] {
+  outline: none;
+}
+
+/* Section separators: outline style */
+.accessibility-dark section {
+  border-color: #2d4060;
+}
+
+/* Dark mode: filled orange buttons and high-contrast white text */
+.dark,
+.accessibility-dark {
+  color: #ffffff;
+}
+
+.dark button,
+.accessibility-dark button,
+.dark [data-slot="button"],
+.accessibility-dark [data-slot="button"],
+.dark a.inline-flex[class*="rounded"][class*="px-"][class*="py-"],
+.accessibility-dark a.inline-flex[class*="rounded"][class*="px-"][class*="py-"] {
+  background: #D75220 !important;
+  color: #ffffff !important;
+  border-color: #D75220 !important;
+}
+
+.dark .gallery-preview-button,
+.accessibility-dark .gallery-preview-button {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.dark .gallery-preview-button:hover,
+.accessibility-dark .gallery-preview-button:hover,
+.dark .gallery-preview-button:focus,
+.accessibility-dark .gallery-preview-button:focus,
+.dark .gallery-preview-button:focus-visible,
+.accessibility-dark .gallery-preview-button:focus-visible,
+.dark .gallery-preview-button:active,
+.accessibility-dark .gallery-preview-button:active {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.dark .gallery-preview-button img,
+.accessibility-dark .gallery-preview-button img {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+  position: relative;
+  z-index: 1;
+}
+
+.dark button:hover,
+.accessibility-dark button:hover,
+.dark [data-slot="button"]:hover,
+.accessibility-dark [data-slot="button"]:hover,
+.dark a.inline-flex[class*="rounded"][class*="px-"][class*="py-"]:hover,
+.accessibility-dark a.inline-flex[class*="rounded"][class*="px-"][class*="py-"]:hover {
+  background: #bf461a !important;
+  color: #ffffff !important;
+}
+
+.dark button:focus-visible,
+.accessibility-dark button:focus-visible,
+.dark [data-slot="button"]:focus-visible,
+.accessibility-dark [data-slot="button"]:focus-visible,
+.dark a.inline-flex[class*="rounded"][class*="px-"][class*="py-"]:focus-visible,
+.accessibility-dark a.inline-flex[class*="rounded"][class*="px-"][class*="py-"]:focus-visible {
+  box-shadow: 0 0 0 3px #ffffff55;
+}
+
+.dark button:disabled,
+.accessibility-dark button:disabled,
+.dark [data-slot="button"][aria-disabled="true"],
+.accessibility-dark [data-slot="button"][aria-disabled="true"] {
+  background: #8c8c8c !important;
+  border-color: #8c8c8c !important;
+  color: #ffffff !important;
+}
+
+.dark button svg,
+.accessibility-dark button svg,
+.dark [data-slot="button"] svg,
+.accessibility-dark [data-slot="button"] svg,
+.dark a.inline-flex[class*="rounded"][class*="px-"][class*="py-"] svg,
+.accessibility-dark a.inline-flex[class*="rounded"][class*="px-"][class*="py-"] svg {
+  color: currentColor !important;
+}
+
+/* Dark mode: menu entries without visual outline styling */
+.dark nav[aria-label="Navigazione principale"] a,
+.accessibility-dark nav[aria-label="Navigazione principale"] a {
+  text-decoration: none !important;
+  border-color: transparent !important;
+}
+
+/* Dark mode: keep culture headers black */
+.dark .cultura-hero,
+.accessibility-dark .cultura-hero {
+  background: #000000 !important;
+  background-image: none !important;
+}
+
+/* Keep home hero CTAs as white outline/text in dark modes */
+.dark .hero-outline-button,
+.accessibility-dark .hero-outline-button {
+  background: transparent !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+.dark .hero-outline-button:hover,
+.accessibility-dark .hero-outline-button:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+/* Keep Atkinson helper trigger neutral (no orange highlight) */
+.dark .font-info-button,
+.accessibility-dark .font-info-button {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: inherit !important;
+}
+
+.dark .font-info-button:hover,
+.accessibility-dark .font-info-button:hover {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+.dark .font-info-button:focus,
+.accessibility-dark .font-info-button:focus,
+.dark .font-info-button:focus-visible,
+.accessibility-dark .font-info-button:focus-visible,
+.dark .font-info-button:active,
+.accessibility-dark .font-info-button:active {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: inherit !important;
+}
+
+/* Keep breadcrumb trail links neutral (no orange fill) */
+.dark .breadcrumb-link-button,
+.accessibility-dark .breadcrumb-link-button,
+.dark .breadcrumb-link-button:hover,
+.accessibility-dark .breadcrumb-link-button:hover,
+.dark .breadcrumb-link-button:focus,
+.accessibility-dark .breadcrumb-link-button:focus,
+.dark .breadcrumb-link-button:focus-visible,
+.accessibility-dark .breadcrumb-link-button:focus-visible,
+.dark .breadcrumb-link-button:active,
+.accessibility-dark .breadcrumb-link-button:active {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+/* Keep footer links neutral (no orange fill) */
+.dark .footer-link,
+.accessibility-dark .footer-link,
+.dark .footer-link:hover,
+.accessibility-dark .footer-link:hover,
+.dark .footer-link:focus,
+.accessibility-dark .footer-link:focus,
+.dark .footer-link:focus-visible,
+.accessibility-dark .footer-link:focus-visible,
+.dark .footer-link:active,
+.accessibility-dark .footer-link:active {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+}
+
+.dark .accessibility-mode-button[data-active="true"],
+.accessibility-dark .accessibility-mode-button[data-active="true"] {
+  background: #D75220 !important;
+  border-color: #D75220 !important;
+  color: #ffffff !important;
+}
+
+.dark .accessibility-mode-button[data-active="false"],
+.accessibility-dark .accessibility-mode-button[data-active="false"] {
+  background: transparent !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.dark .accessibility-mode-button[data-active="false"]:hover,
+.accessibility-dark .accessibility-mode-button[data-active="false"]:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.accessibility-dark nav[aria-label="Navigazione principale"] a[href="#home"] .text-\[\#d75220\],
+.accessibility-dark nav[aria-label="Navigazione principale"] a[href="#home"] .text-muted-foreground {
+  color: #ffffff !important;
+}
+
+/* Dark modes: keep media assets visible */
+.dark img,
+.accessibility-dark img,
+.dark picture img,
+.accessibility-dark picture img {
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+}
+
+.partner-transparency-icon {
+  color: #135DCD !important;
+  stroke: currentColor !important;
+}
+
+.dark .partner-transparency-icon,
+.accessibility-dark .partner-transparency-icon {
+  color: #D75220 !important;
+}
+

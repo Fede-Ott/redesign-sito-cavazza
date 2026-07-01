@@ -51,6 +51,52 @@ import { getEvents, getProjects, getNews, getPageContents } from './data/content
 
 
 
+const TEXT_NAV_SELECTOR = [
+  'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+  'p', 'li', 'dt', 'dd',
+  'blockquote', 'figcaption',
+  'td', 'th',
+  '[data-keyboard-text]'
+].join(', ');
+
+const INTERACTIVE_ANCESTOR_SELECTOR = [
+  'a', 'button', 'input', 'select', 'textarea', 'summary',
+  '[role="button"]', '[role="link"]', '[role="menuitem"]'
+].join(', ');
+
+function isVisibleForKeyboardNav(element: HTMLElement): boolean {
+  const styles = window.getComputedStyle(element);
+  if (styles.display === 'none' || styles.visibility === 'hidden') {
+    return false;
+  }
+
+  const rect = element.getBoundingClientRect();
+  return rect.width > 0 && rect.height > 0;
+}
+
+function applyKeyboardTextNavigation(root: HTMLElement): void {
+  root.querySelectorAll<HTMLElement>('[data-text-nav="true"]').forEach((element) => {
+    element.removeAttribute('data-text-nav');
+    element.removeAttribute('tabindex');
+    element.classList.remove('keyboard-text-focusable');
+  });
+
+  const candidates = Array.from(root.querySelectorAll<HTMLElement>(TEXT_NAV_SELECTOR));
+
+  candidates.forEach((element) => {
+    if (element.closest('[aria-hidden="true"]')) return;
+    if (element.closest(INTERACTIVE_ANCESTOR_SELECTOR)) return;
+    if (!isVisibleForKeyboardNav(element)) return;
+
+    // Preserve explicit tabindex values already set by component authors.
+    if (element.hasAttribute('tabindex')) return;
+
+    element.setAttribute('tabindex', '0');
+    element.setAttribute('data-text-nav', 'true');
+    element.classList.add('keyboard-text-focusable');
+  });
+}
+
 export default function App() {
   const [language, setLanguage] = useState<Lang>('it');
   const [currentPage, setCurrentPage] = useState<'home' | 'istituto' | 'servizi' | 'formazione' | 'eventi' | 'cultura' | 'accessibilita' | 'segnala-problemi' | 'search'>('home');
@@ -84,6 +130,32 @@ export default function App() {
       window.removeEventListener('languagechange', handleLanguageChange);
     };
   }, [language]);
+
+  // Rende raggiungibili da tastiera anche i contenuti testuali non interattivi.
+  useEffect(() => {
+    const mainContent = document.getElementById('main-content');
+    if (!mainContent) return;
+
+    let rafId = 0;
+    const scheduleApply = () => {
+      window.cancelAnimationFrame(rafId);
+      rafId = window.requestAnimationFrame(() => applyKeyboardTextNavigation(mainContent));
+    };
+
+    scheduleApply();
+
+    const observer = new MutationObserver(() => scheduleApply());
+    observer.observe(mainContent, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+
+    return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   // Handler per la navigazione
   const handleNavigation = (page: 'home' | 'istituto' | 'servizi' | 'formazione' | 'eventi' | 'cultura' | 'accessibilita' | 'segnala-problemi', tabOrSection?: string) => {
@@ -1036,14 +1108,16 @@ export default function App() {
 
       {/* Screen reader only class */}
       <style>{`
-        /* Nascondi scrollbar mantenendo funzionalità */
-        * {
-          scrollbar-width: none; /* Firefox */
-          -ms-overflow-style: none; /* IE and Edge */
-        }
+        /* Nascondi scrollbar solo su mobile */
+        @media (max-width: 767px) {
+          * {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+          }
 
-        *::-webkit-scrollbar {
-          display: none; /* Chrome, Safari, Opera */
+          *::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+          }
         }
 
         .sr-only {
@@ -1056,6 +1130,12 @@ export default function App() {
           clip: rect(0, 0, 0, 0);
           white-space: nowrap;
           border-width: 0;
+        }
+
+        .keyboard-text-focusable:focus-visible {
+          outline: 3px solid #d75220;
+          outline-offset: 4px;
+          border-radius: 4px;
         }
 
         /* Modalità scura: sfondo blu notte (no nero puro - evita fotofobia) */

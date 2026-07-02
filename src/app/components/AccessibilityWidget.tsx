@@ -343,6 +343,14 @@ export function AccessibilityWidget() {
     }
 
     const target = e.target as HTMLElement;
+    announceScreenReaderTarget(target);
+  };
+
+  const announceScreenReaderTarget = (target: HTMLElement) => {
+    // CRITICO: verifica che lo screen reader sia effettivamente attivo
+    if (!screenReaderActiveRef.current) {
+      return;
+    }
 
     // Non leggere se l'evento è sul widget stesso o floating button
     if (target.closest('.accessibility-widget-container')) return;
@@ -382,6 +390,26 @@ export function AccessibilityWidget() {
     }
   };
 
+  const handleScreenReaderPressEvent = (e: MouseEvent) => {
+    if (!screenReaderActiveRef.current) {
+      return;
+    }
+
+    // Mobile only: su desktop restiamo in modalita focus da tastiera.
+    const isTouchMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    if (!isTouchMobile) {
+      return;
+    }
+
+    const target = e.target;
+    if (!(target instanceof HTMLElement)) {
+      return;
+    }
+
+    const interactiveTarget = target.closest('a, button, input, select, textarea, summary, [role="button"], [role="link"], [role="menuitem"], [role="tab"]') as HTMLElement | null;
+    announceScreenReaderTarget(interactiveTarget ?? target);
+  };
+
   const enableScreenReader = () => {
     // Implementazione base screen reader con Web Speech API
     if ('speechSynthesis' in window) {
@@ -391,9 +419,12 @@ export function AccessibilityWidget() {
 
       // Rimuovi prima eventuali listener precedenti (prevenzione duplicati)
       document.removeEventListener('focusin', handleScreenReaderEvent);
+      document.removeEventListener('click', handleScreenReaderPressEvent, true);
 
       // Aggiungi listener solo su focus da tastiera (Tab/Shift+Tab)
       document.addEventListener('focusin', handleScreenReaderEvent);
+      // Su mobile touch, annuncia anche al tap/click.
+      document.addEventListener('click', handleScreenReaderPressEvent, true);
     } else {
       alert('Il tuo browser non supporta la sintesi vocale.');
     }
@@ -405,6 +436,7 @@ export function AccessibilityWidget() {
 
     // Rimuovi event listeners
     document.removeEventListener('focusin', handleScreenReaderEvent);
+    document.removeEventListener('click', handleScreenReaderPressEvent, true);
 
     // Ferma qualsiasi lettura in corso
     if ('speechSynthesis' in window) {

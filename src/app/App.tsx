@@ -631,7 +631,7 @@ export default function App() {
                   <Button
                     variant="primary"
                     onClick={() => handleNavigation('istituto')}
-                    className="hero-outline-button !bg-transparent !text-white hover:!bg-accent px-6 py-3 gap-2 hover:gap-3 text-left border-2 !border-white hover:!border-accent font-bold"
+                    className="hero-outline-button !bg-transparent !text-white hover:!bg-accent active:!bg-accent px-6 py-3 gap-2 hover:gap-3 active:gap-3 text-left border-2 !border-white hover:!border-accent active:!border-accent active:!text-white font-bold"
                   >
                     {t('hero.cta.primary')}
                     <ArrowRight className="w-5 h-5" aria-hidden="true" />
@@ -639,7 +639,7 @@ export default function App() {
                   <Button
                     variant="outline"
                     onClick={() => handleNavigation('formazione')}
-                    className="hero-outline-button !bg-transparent !text-white hover:!bg-accent px-6 py-3 gap-2 hover:gap-3 text-left border-2 !border-white hover:!border-accent font-bold"
+                    className="hero-outline-button !bg-transparent !text-white hover:!bg-accent active:!bg-accent px-6 py-3 gap-2 hover:gap-3 active:gap-3 text-left border-2 !border-white hover:!border-accent active:!border-accent active:!text-white font-bold"
                   >
                     {t('hero.cta.secondary')}
                     <ArrowRight className="w-5 h-5" aria-hidden="true" />

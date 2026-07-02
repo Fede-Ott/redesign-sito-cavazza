@@ -593,6 +593,10 @@
   border-color: #ffffff !important;
 }
 
+html:not(.dark):not(.accessibility-dark) .culture-resource-button:hover {
+  border-color: transparent !important;
+}
+
 .dark .culture-resource-button,
 .accessibility-dark .culture-resource-button {
   background: #D75220 !important;

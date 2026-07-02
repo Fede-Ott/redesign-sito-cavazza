@@ -560,6 +560,7 @@ export default function App() {
             window.dispatchEvent(searchEvent);
           }}
           showSearchSubBar={currentPage === 'home'}
+          navigationStateKey={`${currentPage}:${culturaSubPage}:${eventiTab}`}
         />
       </div>
       <AccessibilityWidget />

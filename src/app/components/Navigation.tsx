@@ -15,6 +15,7 @@ interface NavigationProps {
   onLogoClick?: () => void;
   onSearch?: (query: string) => void;
   showSearchSubBar?: boolean;
+  navigationStateKey?: string;
 }
 
 function SearchBar({ compact = false, id = 'search-main', onSubmit }: { compact?: boolean; id?: string; onSubmit?: (query: string) => void }) {
@@ -65,7 +66,7 @@ function SearchBar({ compact = false, id = 'search-main', onSubmit }: { compact?
 
 export { SearchBar };
 
-export function Navigation({ items, onLogoClick, onSearch, showSearchSubBar = true }: NavigationProps) {
+export function Navigation({ items, onLogoClick, onSearch, showSearchSubBar = true, navigationStateKey }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [logoSrc, setLogoSrc] = useState(logoUrl);
 
@@ -84,6 +85,10 @@ export function Navigation({ items, onLogoClick, onSearch, showSearchSubBar = tr
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [navigationStateKey]);
+
   return (
     <nav
       className="bg-white"
@@ -99,6 +104,7 @@ export function Navigation({ items, onLogoClick, onSearch, showSearchSubBar = tr
               href="#home"
               className="flex items-center gap-3 no-underline group"
               onClick={(e) => {
+                setIsOpen(false);
                 if (onLogoClick) {
                   e.preventDefault();
                   onLogoClick();
@@ -159,7 +165,14 @@ export function Navigation({ items, onLogoClick, onSearch, showSearchSubBar = tr
         {isOpen && (
           <div className="md:hidden pb-4">
             <div className="mb-3">
-              <SearchBar compact id="search-mobile" onSubmit={onSearch} />
+              <SearchBar
+                compact
+                id="search-mobile"
+                onSubmit={(query) => {
+                  setIsOpen(false);
+                  onSearch?.(query);
+                }}
+              />
             </div>
             <div className="flex flex-col gap-1">
               {items.map((item) => (

@@ -3,6 +3,7 @@ import { Button } from '../components/Button';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { type Lang } from '../i18n';
 import { instituteImages } from '../data/siteImages';
+import bilancio2024Pdf from '@/assets/Bilancio 2024.pdf';
 
 interface IstitutoPageProps {
   language: Lang;
@@ -10,6 +11,15 @@ interface IstitutoPageProps {
 }
 
 export function IstitutoPage({ language, onHomeClick }: IstitutoPageProps) {
+  const handleBilancioDownload = () => {
+    const link = document.createElement('a');
+    link.href = bilancio2024Pdf;
+    link.download = 'Bilancio 2024.pdf';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  };
+
   const t = (key: string) => {
     const translations: Record<string, { it: string; en: string }> = {
       'breadcrumb.istituto': { it: "Istituto", en: "Institute" },
@@ -330,6 +340,10 @@ export function IstitutoPage({ language, onHomeClick }: IstitutoPageProps) {
                         variant="primary"
                         className="w-full min-[1034px]:w-auto min-[1034px]:min-w-[170px] justify-between bg-[#135DCD] text-white hover:bg-[#0F4FB0] shadow-sm border-2 border-[#135DCD]"
                         onClick={() => {
+                          if (card.key === 'report') {
+                            handleBilancioDownload();
+                            return;
+                          }
                           window.location.hash = card.href
                         }}
                       >

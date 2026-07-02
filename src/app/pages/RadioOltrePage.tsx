@@ -207,7 +207,7 @@ export function RadioOltrePage({ language, onBack, onHomeClick }: RadioOltrePage
           {sections.map((section, index) => (
             <div
               key={section.id}
-              className="relative rounded-xl p-6 hover:shadow-xl transition-all flex flex-col overflow-hidden"
+              className="culture-resource-box relative rounded-xl p-6 hover:shadow-xl transition-all flex flex-col overflow-hidden"
               style={{
                 animation: `fadeInUp 0.6s ease-out ${(index + 4) * 100}ms backwards`,
                 backgroundColor: BG,
@@ -222,7 +222,7 @@ export function RadioOltrePage({ language, onBack, onHomeClick }: RadioOltrePage
               <p className="text-base leading-relaxed flex-1 text-black mb-6">{section.description}</p>
               <Button
                 variant="primary"
-                className="w-full rounded-lg font-bold !bg-[#135DCD] !text-white hover:!bg-[#D75220] border-2 border-[#135DCD]"
+                className="culture-resource-button w-full rounded-lg font-bold !bg-[#135DCD] !text-white hover:!bg-[#D75220] border-2 border-[#135DCD]"
                 onClick={() => handleSectionCta(section.id)}
               >
                 {section.cta}

@@ -136,7 +136,7 @@ export function BibliotecaPage({ language, onBack, onHomeClick }: BibliotecaPage
           {resources.map((resource, index) => (
             <div
               key={resource.id}
-              className="relative rounded-xl p-6 hover:shadow-xl transition-all flex flex-col overflow-hidden"
+              className="culture-resource-box relative rounded-xl p-6 hover:shadow-xl transition-all flex flex-col overflow-hidden"
               style={{
                 animation: `fadeInUp 0.6s ease-out ${index * 100}ms backwards`,
                 backgroundColor: BG,
@@ -154,7 +154,7 @@ export function BibliotecaPage({ language, onBack, onHomeClick }: BibliotecaPage
                 target={resource.download ? undefined : '_blank'}
                 rel={resource.download ? undefined : 'noopener noreferrer'}
                 download={resource.download ? (resource.downloadName || 'download.pdf') : undefined}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-bold transition-colors min-h-[48px] !bg-[#135DCD] hover:!bg-[#D75220] border-2 border-[#135DCD] text-white no-underline"
+                className="culture-resource-button w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-bold transition-colors min-h-[48px] !bg-[#135DCD] hover:!bg-[#D75220] border-2 border-[#135DCD] text-white no-underline"
               >
                 {resource.cta}
                 {resource.ctaIcon && <resource.ctaIcon className="w-4 h-4" aria-hidden="true" />}

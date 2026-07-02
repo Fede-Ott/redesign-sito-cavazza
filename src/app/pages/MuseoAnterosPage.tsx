@@ -231,7 +231,7 @@ export function MuseoAnterosPage({ language, onBack, onHomeClick, onExplore }: M
           {sections.map((section, index) => (
             <div
               key={section.id}
-              className="relative rounded-xl p-6 hover:shadow-xl transition-all flex flex-col overflow-hidden"
+              className="culture-resource-box relative rounded-xl p-6 hover:shadow-xl transition-all flex flex-col overflow-hidden"
               style={{
                 animation: `fadeInUp 0.6s ease-out ${index * 100}ms backwards`,
                 backgroundColor: BG,
@@ -246,7 +246,7 @@ export function MuseoAnterosPage({ language, onBack, onHomeClick, onExplore }: M
               <p className="text-base leading-relaxed mb-4 flex-1 text-black">{section.description}</p>
               <Button
                 variant="primary"
-                className="w-full rounded-lg font-bold !bg-[#135DCD] !text-white hover:!bg-[#D75220] border-2 border-[#135DCD]"
+                className="culture-resource-button w-full rounded-lg font-bold !bg-[#135DCD] !text-white hover:!bg-[#D75220] border-2 border-[#135DCD]"
                 onClick={onExplore}
               >
                 {t('explore.cta')}

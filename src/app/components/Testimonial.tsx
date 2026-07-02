@@ -81,14 +81,25 @@ export function TestimonialSection({ testimonials, language }: TestimonialSectio
     }
   };
 
+  const getScrollStep = (container: HTMLDivElement, isMobile: boolean) => {
+    if (!isMobile) {
+      return 320 + 16; // w-80 (320px) + gap-4 (16px) on desktop
+    }
+
+    const firstCard = container.querySelector('.testimonial-mobile-slide') as HTMLElement | null;
+    const track = container.querySelector('.testimonial-mobile-track') as HTMLElement | null;
+    const gapValue = track ? window.getComputedStyle(track).gap : '0px';
+    const gap = Number.parseFloat(gapValue) || 0;
+
+    return (firstCard?.offsetWidth ?? container.clientWidth) + gap;
+  };
+
   const scrollToNext = () => {
     const isMobile = window.innerWidth < 500;
     const containerRef = isMobile ? scrollContainerRefMobile : scrollContainerRefDesktop;
     if (containerRef.current) {
-      const cardWidth = isMobile
-        ? containerRef.current.clientWidth // Full width on mobile
-        : 320 + 16; // w-80 (320px) + gap-4 (16px) on desktop
-      containerRef.current.scrollBy({ left: cardWidth, behavior: stopAnimations ? 'auto' : 'smooth' });
+      const step = getScrollStep(containerRef.current, isMobile);
+      containerRef.current.scrollBy({ left: step, behavior: stopAnimations ? 'auto' : 'smooth' });
     }
   };
 
@@ -96,10 +107,8 @@ export function TestimonialSection({ testimonials, language }: TestimonialSectio
     const isMobile = window.innerWidth < 500;
     const containerRef = isMobile ? scrollContainerRefMobile : scrollContainerRefDesktop;
     if (containerRef.current) {
-      const cardWidth = isMobile
-        ? containerRef.current.clientWidth // Full width on mobile
-        : 320 + 16; // w-80 (320px) + gap-4 (16px) on desktop
-      containerRef.current.scrollBy({ left: -cardWidth, behavior: stopAnimations ? 'auto' : 'smooth' });
+      const step = getScrollStep(containerRef.current, isMobile);
+      containerRef.current.scrollBy({ left: -step, behavior: stopAnimations ? 'auto' : 'smooth' });
     }
   };
 
@@ -195,9 +204,9 @@ export function TestimonialSection({ testimonials, language }: TestimonialSectio
                 display: none;
               }
             `}</style>
-            <div className="flex gap-4 min-w-min px-4">
+            <div className="testimonial-mobile-track flex gap-4 min-w-min px-4">
               {testimonials.map((testimonial, index) => (
-                <div key={index} className="flex-shrink-0 w-[calc(100vw-2rem)] snap-center">
+                <div key={index} className="testimonial-mobile-slide flex-shrink-0 w-[calc(100vw-2rem)] snap-center">
                   <blockquote className="border-2 border-accent p-5 rounded-xl h-full">
                     <div className="flex flex-col gap-3 h-full">
                       <Quote

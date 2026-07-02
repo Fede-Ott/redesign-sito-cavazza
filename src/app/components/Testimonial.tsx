@@ -53,6 +53,23 @@ export function TestimonialSection({ testimonials, language }: TestimonialSectio
   const scrollContainerRefDesktop = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [stopAnimations, setStopAnimations] = useState(
+    document.documentElement.classList.contains('accessibility-stop-animations')
+  );
+
+  useEffect(() => {
+    const root = document.documentElement;
+
+    const syncStopAnimations = () => {
+      setStopAnimations(root.classList.contains('accessibility-stop-animations'));
+    };
+
+    syncStopAnimations();
+    const observer = new MutationObserver(syncStopAnimations);
+    observer.observe(root, { attributes: true, attributeFilter: ['class'] });
+
+    return () => observer.disconnect();
+  }, []);
 
   const updateScrollButtons = () => {
     const isMobile = window.innerWidth < 500;
@@ -71,7 +88,7 @@ export function TestimonialSection({ testimonials, language }: TestimonialSectio
       const cardWidth = isMobile
         ? containerRef.current.clientWidth // Full width on mobile
         : 320 + 16; // w-80 (320px) + gap-4 (16px) on desktop
-      containerRef.current.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      containerRef.current.scrollBy({ left: cardWidth, behavior: stopAnimations ? 'auto' : 'smooth' });
     }
   };
 
@@ -82,12 +99,16 @@ export function TestimonialSection({ testimonials, language }: TestimonialSectio
       const cardWidth = isMobile
         ? containerRef.current.clientWidth // Full width on mobile
         : 320 + 16; // w-80 (320px) + gap-4 (16px) on desktop
-      containerRef.current.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      containerRef.current.scrollBy({ left: -cardWidth, behavior: stopAnimations ? 'auto' : 'smooth' });
     }
   };
 
   // Auto-scroll effect
   useEffect(() => {
+    if (stopAnimations) {
+      return;
+    }
+
     const interval = setInterval(() => {
       const isMobile = window.innerWidth < 500;
       const containerRef = isMobile ? scrollContainerRefMobile : scrollContainerRefDesktop;
@@ -95,7 +116,7 @@ export function TestimonialSection({ testimonials, language }: TestimonialSectio
         const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
         // If we're at the end, scroll back to start
         if (scrollLeft >= scrollWidth - clientWidth - 10) {
-          containerRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+          containerRef.current.scrollTo({ left: 0, behavior: stopAnimations ? 'auto' : 'smooth' });
         } else {
           scrollToNext();
         }
@@ -103,7 +124,7 @@ export function TestimonialSection({ testimonials, language }: TestimonialSectio
     }, 5000); // Auto-scroll every 5 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [stopAnimations]);
 
   useEffect(() => {
     const containerMobile = scrollContainerRefMobile.current;

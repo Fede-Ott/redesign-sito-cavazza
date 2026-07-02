@@ -102,8 +102,16 @@ export function RadioOltrePage({ language, onBack, onHomeClick }: RadioOltrePage
     { id: 'archivio', icon: Calendar, title: t('archivio.title'), description: t('archivio.desc'), cta: t('discover.cta') },
   ];
 
-  const ACCENT = '#00C950';
-  const BG = '#E5FFF0';
+  const ACCENT = '#135DCD';
+  const BG = '#EEF4FF';
+
+  const handleSectionCta = (sectionId: string) => {
+    if (sectionId === 'partecipa') {
+      window.location.href = 'mailto:radiooltre@cavazza.it';
+      return;
+    }
+    window.open('https://www.radiooltre.it/', '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -210,8 +218,15 @@ export function RadioOltrePage({ language, onBack, onHomeClick }: RadioOltrePage
               <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-4 mt-2" style={{ backgroundColor: ACCENT }}>
                 <section.icon className="w-10 h-10 text-white" aria-hidden="true" />
               </div>
-              <h3 className="text-lg font-bold mb-3">{section.title}</h3>
-              <p className="text-base leading-relaxed flex-1">{section.description}</p>
+              <h3 className="text-lg font-bold mb-3 text-black">{section.title}</h3>
+              <p className="text-base leading-relaxed flex-1 text-black mb-6">{section.description}</p>
+              <Button
+                variant="primary"
+                className="w-full rounded-lg font-bold !bg-[#135DCD] !text-white hover:!bg-[#D75220] border-2 border-[#135DCD]"
+                onClick={() => handleSectionCta(section.id)}
+              >
+                {section.cta}
+              </Button>
             </div>
           ))}
         </div>

@@ -195,9 +195,9 @@ export function TestimonialSection({ testimonials, language }: TestimonialSectio
                 display: none;
               }
             `}</style>
-            <div className="flex gap-4 min-w-min px-7">
+            <div className="flex gap-4 min-w-min px-4">
               {testimonials.map((testimonial, index) => (
-                <div key={index} className="flex-shrink-0 w-[calc(100vw-3.5rem)] snap-center">
+                <div key={index} className="flex-shrink-0 w-[calc(100vw-2rem)] snap-center">
                   <blockquote className="border-2 border-accent p-5 rounded-xl h-full">
                     <div className="flex flex-col gap-3 h-full">
                       <Quote

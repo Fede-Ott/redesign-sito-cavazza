@@ -480,9 +480,9 @@
 
 .dark .hero-outline-button:hover,
 .accessibility-dark .hero-outline-button:hover {
-  background: rgba(255, 255, 255, 0.12) !important;
+  background: #D75220 !important;
   color: #ffffff !important;
-  border-color: #ffffff !important;
+  border-color: #D75220 !important;
 }
 
 /* Keep Atkinson helper trigger neutral (no orange highlight) */

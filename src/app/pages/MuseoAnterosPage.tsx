@@ -66,8 +66,8 @@ export function MuseoAnterosPage({ language, onBack, onHomeClick, onExplore }: M
     return translations[key]?.[language] || key;
   };
 
-  const ACCENT = '#AD46FF';
-  const BG = '#F5EDFF';
+  const ACCENT = '#135DCD';
+  const BG = '#EEF4FF';
 
   const sections = [
     {
@@ -242,9 +242,13 @@ export function MuseoAnterosPage({ language, onBack, onHomeClick, onExplore }: M
               <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-4 mt-2" style={{ backgroundColor: ACCENT }}>
                 <section.icon className="w-10 h-10 text-white" aria-hidden="true" />
               </div>
-              <h3 className="text-lg font-bold mb-3">{section.title}</h3>
-              <p className="text-base leading-relaxed mb-4 flex-1">{section.description}</p>
-              <Button variant="outline" className="w-full rounded-lg font-bold" onClick={onExplore}>
+              <h3 className="text-lg font-bold mb-3 text-black">{section.title}</h3>
+              <p className="text-base leading-relaxed mb-4 flex-1 text-black">{section.description}</p>
+              <Button
+                variant="primary"
+                className="w-full rounded-lg font-bold !bg-[#135DCD] !text-white hover:!bg-[#D75220] border-2 border-[#135DCD]"
+                onClick={onExplore}
+              >
                 {t('explore.cta')}
               </Button>
             </div>

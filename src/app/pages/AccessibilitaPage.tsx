@@ -1,4 +1,5 @@
 import { ArrowLeft, Accessibility } from 'lucide-react';
+import { useEffect } from 'react';
 import { Button } from '../components/Button';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { type Lang } from '../i18n';
@@ -10,6 +11,10 @@ interface AccessibilitaPageProps {
 }
 
 export function AccessibilitaPage({ language, onHomeClick, onNavigate }: AccessibilitaPageProps) {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, []);
+
   const t = (key: string) => {
     const translations: Record<string, { it: string; en: string }> = {
       'breadcrumb.accessibilita': { it: "Dichiarazione di Accessibilità", en: "Accessibility Statement" },

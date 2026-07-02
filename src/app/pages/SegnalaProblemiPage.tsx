@@ -1,4 +1,5 @@
 import { ArrowLeft, MessageSquare } from 'lucide-react';
+import { useEffect } from 'react';
 import { Button } from '../components/Button';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { type Lang } from '../i18n';
@@ -9,6 +10,10 @@ interface SegnalaProblemiPageProps {
 }
 
 export function SegnalaProblemiPage({ language, onHomeClick }: SegnalaProblemiPageProps) {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, []);
+
   const t = (key: string) => {
     const translations: Record<string, { it: string; en: string }> = {
       'breadcrumb.segnala': { it: "Segnala un Problema", en: "Report an Issue" },

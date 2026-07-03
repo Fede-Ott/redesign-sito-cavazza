@@ -194,7 +194,7 @@ export function MuseoTolomeoPage({ language, onBack, onHomeClick, onExplore }: M
               <p className="text-base leading-relaxed mb-4 flex-1 text-black">{section.description}</p>
               <Button
                 variant="primary"
-                className="culture-resource-button w-full rounded-lg font-bold !bg-[#135DCD] !text-white hover:!bg-[#D75220] border-2 border-[#135DCD]"
+                className="culture-resource-button w-full rounded-lg font-bold bg-[#135DCD] text-white hover:bg-[#D75220] border-2 border-[#135DCD]"
                 onClick={onExplore}
               >
                 {t('explore.cta')}

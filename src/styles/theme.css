@@ -617,6 +617,27 @@ html:not(.dark):not(.accessibility-dark) .culture-resource-button:hover {
   color: #ffffff !important;
 }
 
+/* Biblioteca dark mode: keep CTA fill explicitly orange */
+.dark .biblioteca-resource-button,
+.accessibility-dark .biblioteca-resource-button {
+  background: #D75220 !important;
+  border: 0 !important;
+  color: #ffffff !important;
+}
+
+.dark .biblioteca-resource-button:hover,
+.accessibility-dark .biblioteca-resource-button:hover,
+.dark .biblioteca-resource-button:active,
+.accessibility-dark .biblioteca-resource-button:active,
+.dark .biblioteca-resource-button:focus,
+.accessibility-dark .biblioteca-resource-button:focus,
+.dark .biblioteca-resource-button:focus-visible,
+.accessibility-dark .biblioteca-resource-button:focus-visible {
+  background: #bf461a !important;
+  border: 0 !important;
+  color: #ffffff !important;
+}
+
 /* Dark mode: remove leftover blue borders on orange CTA buttons */
 .dark button[class*="border-[#135DCD]"],
 .accessibility-dark button[class*="border-[#135DCD]"],

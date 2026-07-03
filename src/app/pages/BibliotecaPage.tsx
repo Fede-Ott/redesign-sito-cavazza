@@ -155,6 +155,7 @@ export function BibliotecaPage({ language, onBack, onHomeClick }: BibliotecaPage
                 rel={resource.download ? undefined : 'noopener noreferrer'}
                 download={resource.download ? (resource.downloadName || 'download.pdf') : undefined}
                 className="culture-resource-button w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-bold transition-colors min-h-[48px] bg-[#135DCD] hover:bg-[#D75220] border-2 border-[#135DCD] text-white no-underline"
+                style={{ backgroundColor: '#135DCD', borderColor: '#135DCD' }}
               >
                 {resource.cta}
                 {resource.ctaIcon && <resource.ctaIcon className="w-4 h-4" aria-hidden="true" />}

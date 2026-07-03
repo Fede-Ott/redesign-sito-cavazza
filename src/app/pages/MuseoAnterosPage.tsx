@@ -131,7 +131,7 @@ export function MuseoAnterosPage({ language, onBack, onHomeClick, onExplore }: M
   // Images provided by user for the enlarged popup only.
   const modalGalleryImages = Array.from(
     { length: 12 },
-    (_, i) => new URL(`../../assets/immagini-galleria/galleryAnteros (${i + 1}).png`, import.meta.url).href,
+    (_, i) => new URL(`../../assets/immagini-galleria/galleryAnteros (${i + 1}).webp`, import.meta.url).href,
   );
 
   return (

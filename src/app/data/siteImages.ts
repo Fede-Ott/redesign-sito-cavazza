@@ -1,7 +1,7 @@
 const asset = (fileName: string) => new URL(`../../assets/${fileName}`, import.meta.url).href
 
 export const serviceImages = {
-  scePrimary: asset('SCE.jpg'),
+  scePrimary: asset('SCE.webp'),
   sceSecondary: asset('image (1).webp'),
   lowVision: asset('CentroIpovisione.webp'),
   aidLibraryIt: asset('ausilioteca (1).webp'),
@@ -20,33 +20,33 @@ export const instituteImages = {
 }
 
 export const anterosGalleryImages = [
-  asset('galleryAnteros (1).png'),
-  asset('galleryAnteros (2).png'),
-  asset('galleryAnteros (3).png'),
-  asset('galleryAnteros (4).png'),
-  asset('galleryAnteros (5).png'),
-  asset('galleryAnteros (6).png'),
-  asset('galleryAnteros (7).png'),
-  asset('galleryAnteros (8).png'),
-  asset('galleryAnteros (9).png'),
-  asset('galleryAnteros (10).png'),
-  asset('galleryAnteros (11).png'),
-  asset('galleryAnteros (12).png'),
+  asset('galleryAnteros (1).webp'),
+  asset('galleryAnteros (2).webp'),
+  asset('galleryAnteros (3).webp'),
+  asset('galleryAnteros (4).webp'),
+  asset('galleryAnteros (5).webp'),
+  asset('galleryAnteros (6).webp'),
+  asset('galleryAnteros (7).webp'),
+  asset('galleryAnteros (8).webp'),
+  asset('galleryAnteros (9).webp'),
+  asset('galleryAnteros (10).webp'),
+  asset('galleryAnteros (11).webp'),
+  asset('galleryAnteros (12).webp'),
 ]
 
 export const tolomeoGalleryImages = [
-  asset('galleryTolomeo.png'),
-  asset('galleryTolomeo-1.png'),
-  asset('galleryTolomeo-2.png'),
-  asset('galleryTolomeo-3.png'),
-  asset('galleryTolomeo-4.png'),
-  asset('galleryTolomeo-5.png'),
-  asset('galleryTolomeo-6.png'),
-  asset('galleryTolomeo-7.png'),
-  asset('galleryTolomeo-8.png'),
-  asset('galleryTolomeo-9.png'),
-  asset('galleryTolomeo-10.png'),
-  asset('galleryTolomeo-11.png'),
+  asset('galleryTolomeo.webp'),
+  asset('galleryTolomeo-1.webp'),
+  asset('galleryTolomeo-2.webp'),
+  asset('galleryTolomeo-3.webp'),
+  asset('galleryTolomeo-4.webp'),
+  asset('galleryTolomeo-5.webp'),
+  asset('galleryTolomeo-6.webp'),
+  asset('galleryTolomeo-7.webp'),
+  asset('galleryTolomeo-8.webp'),
+  asset('galleryTolomeo-9.webp'),
+  asset('galleryTolomeo-10.webp'),
+  asset('galleryTolomeo-11.webp'),
 ]
 
 export const siteImageUrls = [

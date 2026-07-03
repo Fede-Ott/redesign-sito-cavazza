@@ -600,7 +600,7 @@ html:not(.dark):not(.accessibility-dark) .culture-resource-button:hover {
 .dark .culture-resource-button,
 .accessibility-dark .culture-resource-button {
   background: #D75220 !important;
-  border-color: #D75220 !important;
+  border: 0 !important;
   color: #ffffff !important;
 }
 
@@ -613,7 +613,7 @@ html:not(.dark):not(.accessibility-dark) .culture-resource-button:hover {
 .dark .culture-resource-button:focus-visible,
 .accessibility-dark .culture-resource-button:focus-visible {
   background: #bf461a !important;
-  border-color: #bf461a !important;
+  border: 0 !important;
   color: #ffffff !important;
 }
 

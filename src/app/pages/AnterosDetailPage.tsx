@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   ArrowLeft, Hand, Phone, Mail, MapPin, Clock, Calendar,
   BookOpen, Users, GraduationCap, Layers,
@@ -8,7 +8,6 @@ import { Breadcrumbs } from '../components/Breadcrumbs';
 import { Button } from '../components/Button';
 import { MuseumBookingModal } from '../components/MuseumBookingModal';
 import { type Lang } from '../i18n';
-import { anterosGalleryImages } from '../data/siteImages';
 
 interface AnterosDetailPageProps {
   language: Lang;
@@ -101,6 +100,16 @@ export function AnterosDetailPage({ language, onBack, onHomeClick }: AnterosDeta
         : 'Silicone mould creation and final copies in white resin or alabaster plaster.'
     },
   ];
+
+  const collectionGallerySources = useMemo(() => {
+    const allImages = Array.from(
+      { length: 12 },
+      (_, i) => new URL(`../../assets/immagini-galleria/galleryAnteros (${i + 1}).webp`, import.meta.url).href,
+    );
+
+    const shuffled = [...allImages].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 4);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -237,7 +246,7 @@ export function AnterosDetailPage({ language, onBack, onHomeClick }: AnterosDeta
             ))}
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {anterosGalleryImages.slice(0, 4).map((src, imageIndex) => (
+            {collectionGallerySources.map((src, imageIndex) => (
               <img
                 key={imageIndex}
                 src={src}

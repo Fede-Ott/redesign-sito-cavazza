@@ -128,6 +128,12 @@ export function MuseoAnterosPage({ language, onBack, onHomeClick, onExplore }: M
     src: anterosGalleryImages[i]
   }));
 
+  // Images provided by user for the enlarged popup only.
+  const modalGalleryImages = Array.from(
+    { length: 12 },
+    (_, i) => new URL(`../../assets/immagini-galleria/galleryAnteros (${i + 1}).png`, import.meta.url).href,
+  );
+
   return (
     <div className="min-h-screen bg-background">
       {/* Breadcrumbs */}
@@ -280,9 +286,9 @@ export function MuseoAnterosPage({ language, onBack, onHomeClick, onExplore }: M
             </div>
             <div className="overflow-hidden rounded-xl mb-6 shadow-sm">
               <img
-                src={galleryImages[selectedImage - 1]?.src}
+                src={modalGalleryImages[selectedImage - 1] ?? galleryImages[selectedImage - 1]?.src}
                 alt={galleryImages[selectedImage - 1]?.title ?? ''}
-                className="aspect-video h-full w-full object-cover"
+                className="max-h-[70vh] w-full object-contain"
               />
             </div>
             <p className="text-lg leading-relaxed">
